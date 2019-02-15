@@ -4,36 +4,11 @@
 
 * [ Setup ](#setup)
   * [ Build ](#build)
-  	* [ Docker Images ](#docker-images)
-    	* [ Java Base Layer ](#java-base-layer)
-    	* [ Elasticsearch ](#elasticsearch)
-    	* [ Liferay DXP 7.1 ](#liferay-dxp-7.1)
   * [ Run ](#run)
-
 
 ## Setup
 
 ### Build
-
-#### Java Base Layer
-
-Go to java folder and build the image:
-
-```
-cd java/
-docker build -t lfrdxp/java-base . 
-```
-
-#### Elasticsearch
-
-Go to els directory and build the image:
-
-```
-cd els
-docker build -t lfrdxp/elasticsearch .
-```
-
-#### Liferay DXP 7.1
 
 Copy the **liferay-dxp-tomcat-7.1.10.1-sp1-20190110085705206.zip** package into the dxp folder:
 
@@ -53,11 +28,10 @@ Copy the Liferay DXP 7.1 last fixpack named **liferay-fix-pack-dxp-6-7110.zip** 
 cp liferay-fix-pack-dxp-6-7110.zip dxp/
 ```
 
-Build the DXP 7.1 image:
+Build:
 
 ```
-cd dxp/
-docker build -t lfrdxp/dxp .
+docker-compose build
 ```
 
 ### Run
