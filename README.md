@@ -42,14 +42,13 @@ Run the docker compose for DXP Cluster:
 docker-compose up -d
 ```
 
-Go to http://localhost:8080 and login as admin (test/test).
-
 Watch the logs:
 
 ```
 docker logs -f dxp
 ```
 
+Go to http://localhost:8080 and login as admin (test/test).
 
 Reindex all search indexes.
 
