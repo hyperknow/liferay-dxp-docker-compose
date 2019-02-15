@@ -20,6 +20,9 @@ services:
 
  els:
   image: lfrdxp/elasticsearch
+  build:
+   context: els
+   dockerfile: Dockerfile
   container_name: els-dxp
   restart: always
   networks:
@@ -29,6 +32,9 @@ services:
 
  dxp:
   image: lfrdxp/dxp
+  build:
+   context: dxp
+   dockerfile: Dockerfile
   container_name: dxp
   restart: always
   ports:

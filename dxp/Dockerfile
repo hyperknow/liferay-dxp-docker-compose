@@ -4,7 +4,7 @@
 # Build the image:
 # docker build -t lfrdxp/dxp .
 #
-FROM lfrdxp/java-base
+FROM nimmis/java-centos:oracle-8-jdk
 MAINTAINER Andre Fabbro <andre.fabbro@liferay.com>
 
 ENV INSTALLDIR /opt
@@ -13,6 +13,11 @@ ENV LIFERAY_PACKAGE_NAME_FOLDER liferay-dxp-7.1.10.1-sp1
 ENV LIFERAY_LICENSE license.xml
 ENV LIFERAY_FIXPACK liferay-fix-pack-dxp-6-7110.zip
 ENV TOMCA_ROOT_CONF ROOT.xml
+
+USER root
+
+# Install additional packages
+RUN yum update -y && yum -y install xmlstarlet saxon augeas bsdtar unzip telnet && yum clean all
 
 WORKDIR $INSTALLDIR
 
@@ -31,6 +36,7 @@ COPY portal-ext.properties /opt/liferay/
 
 # Copy OSGi configs
 COPY com.liferay.portal.store.file.system.configuration.AdvancedFileSystemStoreConfiguration.cfg /opt/liferay/osgi/configs/
+COPY com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config /opt/liferay/osgi/configs/
 
 # Copy Tomcat Datasource Config
 RUN rm -rf /opt/liferay/tomcat-9.0.6/conf/Catalina/localhost/$TOMCA_ROOT_CONF
