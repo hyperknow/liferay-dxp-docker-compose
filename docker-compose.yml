@@ -1,0 +1,43 @@
+version: '3'
+
+networks:
+ lfr-network:
+  driver: bridge
+
+services:
+ database:
+  image: mariadb:10.2
+  container_name: mariadb-dxp
+  restart: always
+  environment:
+   MYSQL_ROOT_PASSWORD: root
+   MYSQL_DATABASE: lportal
+  command: --character-set-server=utf8 --collation-server=utf8_general_ci --lower-case-table-names=0
+  networks:
+   lfr-network:
+    aliases:
+     - mariadb
+
+ els:
+  image: lfrdxp/elasticsearch
+  container_name: els-dxp
+  restart: always
+  networks:
+   lfr-network:
+    aliases:
+     - els
+
+ dxp:
+  image: lfrdxp/dxp
+  container_name: dxp
+  restart: always
+  ports:
+   - "8080:8080"
+   - "11311:11311"
+  networks:
+   lfr-network:
+    aliases:
+     - dxp
+  depends_on:
+   - database
+   - els
