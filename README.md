@@ -44,6 +44,13 @@ docker-compose up -d
 
 Go to http://localhost:8080 and login as admin (test/test).
 
+Watch the logs:
+
+```
+docker logs -f dxp
+```
+
+
 Reindex all search indexes.
 
 Install your plugins and enjoy. ;)
