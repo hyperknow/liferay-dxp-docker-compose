@@ -8,10 +8,10 @@ FROM nimmis/java-centos:oracle-8-jdk
 MAINTAINER Andre Fabbro <andre.fabbro@liferay.com>
 
 ENV INSTALLDIR /opt
-ENV LIFERAY_PACKAGE liferay-dxp-tomcat-7.1.10.1-sp1-20190110085705206.zip
-ENV LIFERAY_PACKAGE_NAME_FOLDER liferay-dxp-7.1.10.1-sp1
+ENV LIFERAY_PACKAGE liferay-dxp-digital-enterprise-7.0-sp6-fp39.zip
+ENV LIFERAY_PACKAGE_NAME_FOLDER liferay-dxp-digital-enterprise-7.0-sp6
 ENV LIFERAY_LICENSE license.xml
-ENV LIFERAY_FIXPACK liferay-fix-pack-dxp-6-7110.zip
+#ENV LIFERAY_FIXPACK liferay-fix-pack-dxp-6-7110.zip
 ENV TOMCA_ROOT_CONF ROOT.xml
 
 USER root
@@ -39,14 +39,16 @@ COPY com.liferay.portal.store.file.system.configuration.AdvancedFileSystemStoreC
 COPY com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfiguration.config /opt/liferay/osgi/configs/
 
 # Copy Tomcat Datasource Config
-RUN rm -rf /opt/liferay/tomcat-9.0.6/conf/Catalina/localhost/$TOMCA_ROOT_CONF
-COPY $TOMCA_ROOT_CONF /opt/liferay/tomcat-9.0.6/conf/Catalina/localhost/
+RUN rm -rf /opt/liferay/tomcat-8.0.32/conf/Catalina/localhost/$TOMCA_ROOT_CONF
+COPY $TOMCA_ROOT_CONF /opt/liferay/tomcat-8.0.32/conf/Catalina/localhost/
 
 # Install fix-pack
-COPY $LIFERAY_FIXPACK /opt/liferay/patching-tool/patches/
-RUN sh /opt/liferay/patching-tool/patching-tool.sh install
+#COPY $LIFERAY_FIXPACK /opt/liferay/patching-tool/patches/
+#RUN sh /opt/liferay/patching-tool/patching-tool.sh install
 
-EXPOSE 8080 8009
+EXPOSE 8009/tcp
+EXPOSE 8080/tcp
+EXPOSE 11311/tcp
 
 # CMD ["bash"]
-CMD ["/opt/liferay/tomcat-9.0.6/bin/catalina.sh", "run"]
+CMD ["/opt/liferay/tomcat-8.0.32/bin/catalina.sh", "run"]

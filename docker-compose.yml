@@ -13,22 +13,24 @@ services:
    MYSQL_ROOT_PASSWORD: root
    MYSQL_DATABASE: lportal
   command: --character-set-server=utf8 --collation-server=utf8_general_ci --lower-case-table-names=0
+  ports:
+   - "3306:3306"
   networks:
    lfr-network:
     aliases:
      - mariadb
 
- els:
-  image: lfrdxp/elasticsearch
-  build:
-   context: els
-   dockerfile: Dockerfile
-  container_name: els-dxp
-  restart: always
-  networks:
-   lfr-network:
-    aliases:
-     - els
+# els:
+#  image: lfrdxp/elasticsearch
+#  build:
+#   context: els
+#   dockerfile: Dockerfile
+#  container_name: els-dxp
+#  restart: always
+#  networks:
+#   lfr-network:
+#    aliases:
+#     - els
 
  dxp:
   image: lfrdxp/dxp
@@ -46,4 +48,4 @@ services:
      - dxp
   depends_on:
    - database
-   - els
+#   - els
