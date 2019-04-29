@@ -42,7 +42,7 @@ Watch the logs:
 docker logs -f dxp
 ```
 
-Go to http://localhost:8080 and login as admin (test/test).
+Go to http://<local ip>:8080 and login as admin (test/test).
 
 
 
