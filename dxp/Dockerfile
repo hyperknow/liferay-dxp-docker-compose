@@ -13,6 +13,7 @@ ENV LIFERAY_PACKAGE_NAME_FOLDER liferay-dxp-digital-enterprise-7.0-sp6
 ENV LIFERAY_LICENSE license.xml
 #ENV LIFERAY_FIXPACK liferay-fix-pack-dxp-6-7110.zip
 ENV TOMCA_ROOT_CONF ROOT.xml
+ENV SETENV setenv.sh
 
 USER root
 
@@ -42,12 +43,17 @@ COPY com.liferay.portal.search.elasticsearch6.configuration.ElasticsearchConfigu
 RUN rm -rf /opt/liferay/tomcat-8.0.32/conf/Catalina/localhost/$TOMCA_ROOT_CONF
 COPY $TOMCA_ROOT_CONF /opt/liferay/tomcat-8.0.32/conf/Catalina/localhost/
 
+# Copy setenv.sh
+RUN rm -f /opt/liferay/tomcat-8.0.32/bin/setenv.sh
+COPY $SETENV /opt/liferay/tomcat-8.0.32/bin/
+
 # Install fix-pack
 #COPY $LIFERAY_FIXPACK /opt/liferay/patching-tool/patches/
 #RUN sh /opt/liferay/patching-tool/patching-tool.sh install
 
 EXPOSE 8009/tcp
 EXPOSE 8080/tcp
+EXPOSE 8000/tcp
 EXPOSE 11311/tcp
 
 # CMD ["bash"]
