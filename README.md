@@ -49,5 +49,5 @@ Go to http://(local ip):8080 and login as admin (test/test).
 Install your plugins and enjoy. ;)
 
 p.s:
-if use docker toolbox on virtualbox please verify that you have 4gb ram o more associated with default image
+if use docker toolbox on virtualbox please verify that you have 4gb ram o more and 2 cpu o more associated with default image
 
